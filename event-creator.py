@@ -20,18 +20,17 @@ def create_ea_forum_event(month, year):
 
     driver.get("https://forum.effectivealtruism.org/newPost?eventForm=true&groupId=CojpcGppQzsgPdQaX")
 
+    sleep(1)
+
     title = f"ACX/EA Lisbon {month} {year} Meetup"
     driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
 
     description = ("Exact location: https://plus.codes/8CCGPRPW+WF\n"
-                    "In the grassy hill over the the lake, close to 'Cafetaria do Museu Gulbenkian'.")
+                   "In the grassy hill over the the lake, close to 'Cafetaria do Museu Gulbenkian'.")
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor, main']").send_keys(description)
 
-
-
-
-
-
+    driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
+    driver.find_element(By.XPATH, "//li[text()='Social']").click()
 
     sleep(22345354)
 
