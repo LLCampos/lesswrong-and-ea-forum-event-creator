@@ -42,6 +42,12 @@ def create_ea_forum_event(meetup_date):
     end_time.click()
     end_time.send_keys(f"{formatted_date} 18:00")
 
+    location = "Garden of the Calouste Gulbenkian Foundation, Avenida de Berna, Lisbon, Portugal"
+    driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
+
+    contact = "Phone Number: +351960105498"
+    driver.find_element(By.XPATH, "//label[text()='Contact Info']/following-sibling::div/input").send_keys(contact)
+
     sleep(123)
 
 
