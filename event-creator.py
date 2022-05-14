@@ -48,7 +48,7 @@ def create_ea_forum_event(meetup_date):
     contact = "Phone Number: +351960105498"
     driver.find_element(By.XPATH, "//label[text()='Contact Info']/following-sibling::div/input").send_keys(contact)
 
-    sleep(123)
+    driver.find_element(By.XPATH, "//*[text()='Save as draft']").click()
 
 
 if __name__ == "__main__":
