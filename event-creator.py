@@ -36,11 +36,11 @@ def create_ea_forum_event(meetup_date):
     formatted_date = meetup_date.strftime("%m/%d/%Y")
     start_time = driver.find_element(By.NAME, "startTime")
     start_time.click()
-    start_time.send_keys(f"{formatted_date} 15:00")
+    start_time.send_keys(f"{formatted_date} 3:00 PM")
 
     end_time = driver.find_element(By.NAME, "endTime")
     end_time.click()
-    end_time.send_keys(f"{formatted_date} 18:00")
+    end_time.send_keys(f"{formatted_date} 6:00 PM")
 
     location = "Garden of the Calouste Gulbenkian Foundation, Avenida de Berna, Lisbon, Portugal"
     driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
