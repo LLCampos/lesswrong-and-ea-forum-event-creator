@@ -9,17 +9,17 @@ config = ConfigParser()
 config.read("conf.ini")
 
 
-def create_ea_forum_event(meetup_date):
+def create_event(meetup_date, base_url, group_id, username, password):
     driver = webdriver.Chrome()
-    driver.get("https://forum.effectivealtruism.org/")
+    driver.get(base_url)
 
     driver.find_element(By.CLASS_NAME, "UsersAccountMenu-userButton").click()
 
-    driver.find_element(By.ID, "username").send_keys(config.get("ea-forum", "email"))
-    driver.find_element(By.ID, "password").send_keys(config.get("ea-forum", "password"))
+    driver.find_element(By.ID, "username").send_keys(username)
+    driver.find_element(By.ID, "password").send_keys(password)
     driver.find_element(By.NAME, "action").click()
 
-    driver.get("https://forum.effectivealtruism.org/newPost?eventForm=true&groupId=CojpcGppQzsgPdQaX")
+    driver.get(f"{base_url}/newPost?eventForm=true&groupId={group_id}")
 
     sleep(1)
 
@@ -51,6 +51,24 @@ def create_ea_forum_event(meetup_date):
     driver.find_element(By.XPATH, "//*[text()='Save as draft']").click()
 
 
+def create_ea_forum_event(meetup_date):
+    base_url = "https://forum.effectivealtruism.org"
+    group_id = "CojpcGppQzsgPdQaX"
+    username = config.get("ea-forum", "email")
+    password = config.get("ea-forum", "password")
+    create_event(meetup_date, base_url, group_id, username, password)
+
+
+def create_lesswrong_event(meetup_date):
+    base_url = "https://www.lesswrong.com/"
+    group_id = "iJzwL2ukGBAGNcwJq"
+    username = config.get("lesswrong", "email")
+    password = config.get("lesswrong", "password")
+    create_event(meetup_date, base_url, group_id, username, password)
+    create_event(meetup_date, base_url, group_id)
+
+
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2022, 6, 22)
+    meetup_date = datetime.datetime(2022, 7, 16)
     create_ea_forum_event(meetup_date)
+    create_lesswrong_event(meetup_date)
