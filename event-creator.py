@@ -65,7 +65,6 @@ def create_lesswrong_event(meetup_date):
     username = config.get("lesswrong", "email")
     password = config.get("lesswrong", "password")
     create_event(meetup_date, base_url, group_id, username, password)
-    create_event(meetup_date, base_url, group_id)
 
 
 if __name__ == "__main__":
