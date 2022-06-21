@@ -9,15 +9,23 @@ config = ConfigParser()
 config.read("conf.ini")
 
 
-def create_event(meetup_date, base_url, group_id, username, password):
+def create_event(meetup_date, base_url, group_id, username, password, type):
     driver = webdriver.Chrome()
-    driver.get(base_url)
 
-    driver.find_element(By.CLASS_NAME, "UsersAccountMenu-userButton").click()
+    if type == "ea":
+        driver.get(base_url)
+        driver.find_element(By.CLASS_NAME, "UsersAccountMenu-userButton").click()
+    elif type == "lw":
+        driver.get("https://www.lesswrong.com/login")
 
-    driver.find_element(By.ID, "username").send_keys(username)
-    driver.find_element(By.ID, "password").send_keys(password)
-    driver.find_element(By.NAME, "action").click()
+    driver.find_element(By.NAME, "username").send_keys(username)
+    driver.find_element(By.NAME, "password").send_keys(password)
+
+    if type == "ea":
+        driver.find_element(By.NAME, "action").click()
+    elif type == "lw":
+        driver.find_element(By.CLASS_NAME, "WrappedLoginForm-submit").click()
+        sleep(5)
 
     driver.get(f"{base_url}/newPost?eventForm=true&groupId={group_id}")
 
@@ -56,15 +64,15 @@ def create_ea_forum_event(meetup_date):
     group_id = "CojpcGppQzsgPdQaX"
     username = config.get("ea-forum", "email")
     password = config.get("ea-forum", "password")
-    create_event(meetup_date, base_url, group_id, username, password)
+    create_event(meetup_date, base_url, group_id, username, password, "ea")
 
 
 def create_lesswrong_event(meetup_date):
-    base_url = "https://www.lesswrong.com/"
+    base_url = "https://www.lesswrong.com"
     group_id = "iJzwL2ukGBAGNcwJq"
     username = config.get("lesswrong", "email")
     password = config.get("lesswrong", "password")
-    create_event(meetup_date, base_url, group_id, username, password)
+    create_event(meetup_date, base_url, group_id, username, password, "lw")
 
 
 if __name__ == "__main__":
