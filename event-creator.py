@@ -29,7 +29,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
 
     driver.get(f"{base_url}/newPost?eventForm=true&groupId={group_id}")
 
-    sleep(1)
+    sleep(5)
 
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
     driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
