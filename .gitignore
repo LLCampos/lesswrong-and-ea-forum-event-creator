@@ -1,3 +1,4 @@
 conf.ini
 Pipfile.lock
 *.iml
+.idea/*
