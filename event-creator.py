@@ -34,8 +34,8 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
     driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
 
-    description = ("Exact location: https://plus.codes/8CCGPRPW+WF\n"
-                   "In the grassy hill over the the lake, close to 'Cafetaria do Museu Gulbenkian'.")
+    description = ("Exact location: https://w3w.co/link.prone.trimmer\n"
+                   "It's below a bunch of trees, in the stop of a hill.")
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor, main']").send_keys(description)
 
     driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
@@ -50,7 +50,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     end_time.click()
     end_time.send_keys(f"{formatted_date} 6:00 PM")
 
-    location = "Garden of the Calouste Gulbenkian Foundation, Avenida de Berna, Lisbon, Portugal"
+    location = "Alameda Cardeal Cerejeira, 1070-051 Lisboa, Portugal"
     driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
 
     contact = "Phone Number: +351960105498"
