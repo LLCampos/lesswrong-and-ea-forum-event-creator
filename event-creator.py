@@ -34,8 +34,9 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
     driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
 
-    description = ("Exact location: https://w3w.co/link.prone.trimmer\n"
-                   "It's below a bunch of trees, in the stop of a hill.")
+    description = ("Exact location: https://plus.codes/8CCGPRJW+V8\n"
+                   "In Jardim Amália Rodrigues, close to Linha d'Água cafe, in the top of a hill, below a bunch of "
+                   "trees.")
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor, main']").send_keys(description)
 
     driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
@@ -52,7 +53,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     end_time.click()
     end_time.send_keys(f"{formatted_date} 6:00 PM")
 
-    location = "Alameda Cardeal Cerejeira, 1070-051 Lisboa, Portugal"
+    location = "Jardim Amália Rodrigues, Lisbon"
     driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
     sleep(1)
     driver.find_element(By.CLASS_NAME, "geosuggest__item").click()
