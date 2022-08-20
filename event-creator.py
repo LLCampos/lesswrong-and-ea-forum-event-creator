@@ -41,6 +41,8 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
     driver.find_element(By.XPATH, "//li[text()='Social']").click()
 
+    sleep(5)
+
     formatted_date = meetup_date.strftime("%m/%d/%Y")
     start_time = driver.find_element(By.NAME, "startTime")
     start_time.click()
@@ -52,9 +54,15 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
 
     location = "Alameda Cardeal Cerejeira, 1070-051 Lisboa, Portugal"
     driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
+    sleep(1)
+    driver.find_element(By.CLASS_NAME, "geosuggest__item").click()
 
     contact = "Phone Number: +351960105498"
     driver.find_element(By.XPATH, "//label[text()='Contact Info']/following-sibling::div/input").send_keys(contact)
+
+    if type == 'lw':
+        for cat in ['LW', 'SSC', 'EA']:
+            driver.find_element(By.XPATH, f"//span[text()='{cat}']").click()
 
     driver.find_element(By.XPATH, "//*[text()='Save as draft']").click()
 
@@ -76,6 +84,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2022, 7, 16)
+    meetup_date = datetime.datetime(2022, 9, 10)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
