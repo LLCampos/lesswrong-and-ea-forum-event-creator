@@ -66,6 +66,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
             driver.find_element(By.XPATH, f"//span[text()='{cat}']").click()
 
     driver.find_element(By.XPATH, "//*[text()='Save as draft']").click()
+    sleep(2)
 
 
 def create_ea_forum_event(meetup_date):
@@ -85,6 +86,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2022, 9, 10)
+    meetup_date = datetime.datetime(2022, 10, 8)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
