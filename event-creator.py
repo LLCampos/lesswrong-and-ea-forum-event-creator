@@ -34,9 +34,12 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
     driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
 
-    description = ("Exact location: https://plus.codes/8CCGPRJW+V8\n"
-                   "In Jardim Amália Rodrigues, close to Linha d'Água cafe, in the top of a hill, below a bunch of "
-                   "trees.")
+    description = (
+        "Please don’t feel like you “won’t be welcome” just because you’re new to ACX/EA or demographically different "
+        "from the average attendee. You'll be fine!\n"
+        "Exact location: https://plus.codes/8CCGPRJW+V8\n"
+        "In Jardim Amália Rodrigues, close to Linha d'Água cafe, in the top of a hill, below a bunch of "
+        "trees. This might change in case of rain, so check the event page for updates.")
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor, main']").send_keys(description)
 
     driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
@@ -65,7 +68,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         for cat in ['LW', 'SSC', 'EA']:
             driver.find_element(By.XPATH, f"//span[text()='{cat}']").click()
 
-    driver.find_element(By.XPATH, "//*[text()='Save as draft']").click()
+    driver.find_element(By.XPATH, "//*[text()='Submit']").click()
     sleep(2)
 
 
@@ -86,6 +89,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2022, 10, 8)
+    meetup_date = datetime.datetime(2022, 12, 10)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
