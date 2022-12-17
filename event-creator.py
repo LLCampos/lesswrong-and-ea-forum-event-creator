@@ -1,6 +1,7 @@
 from time import sleep
 
 from selenium import webdriver
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from configparser import ConfigParser
 import datetime
@@ -30,6 +31,13 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     driver.get(f"{base_url}/newPost?eventForm=true&groupId={group_id}")
 
     sleep(5)
+
+    try:
+        agreement_checkbox_xpath = "//*[contains(text(), 'Before you can publish this post you must agree to " \
+                                   "the')]/../*[1] "
+        driver.find_element(By.XPATH, agreement_checkbox_xpath).click()
+    except NoSuchElementException:
+        pass
 
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
     driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
@@ -89,6 +97,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2022, 12, 10)
+    meetup_date = datetime.datetime(2023, 1, 14)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
