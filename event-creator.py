@@ -1,17 +1,18 @@
+import datetime
+from configparser import ConfigParser
 from time import sleep
 
 from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
-from configparser import ConfigParser
-import datetime
+from webdriver_manager.chrome import ChromeDriverManager
 
 config = ConfigParser()
 config.read("conf.ini")
 
 
 def create_event(meetup_date, base_url, group_id, username, password, type):
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(ChromeDriverManager().install())
 
     if type == "ea":
         driver.get(base_url)
@@ -42,12 +43,17 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
     driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
 
+    try:
+        driver.find_element(By.XPATH, "//span[text()='Accept all']").click()
+    except NoSuchElementException:
+        pass
+
     description = (
         "Please don’t feel like you “won’t be welcome” just because you’re new to ACX/EA or demographically different "
         "from the average attendee. You'll be fine!\n"
         "Exact location: https://plus.codes/8CCGPRJW+V8\n"
-        "In Jardim Amália Rodrigues, close to Linha d'Água cafe, in the top of a hill, below a bunch of "
-        "trees. This might change in case of rain, so check the event page for updates.")
+        "We meet on top of a small hill East of the Linha d'Água café in Jardim Amália Rodrigues. For comfort, bring "
+        "sunglasses and a blanket to sit on. There is some natural shade.")
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor, main']").send_keys(description)
 
     driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
@@ -64,7 +70,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     end_time.click()
     end_time.send_keys(f"{formatted_date} 6:00 PM")
 
-    location = "Jardim Amália Rodrigues, Lisbon"
+    location = "PRJW+V8 Lisboa, Portugal"
     driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
     sleep(1)
     driver.find_element(By.CLASS_NAME, "geosuggest__item").click()
@@ -97,6 +103,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2023, 1, 14)
-    create_ea_forum_event(meetup_date)
+    meetup_date = datetime.datetime(2023, 6, 17)
+    # create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)

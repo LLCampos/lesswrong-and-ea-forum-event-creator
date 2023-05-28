@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 selenium = "*"
+urllib3 = "==1.26.12"
+webdriver-manager = "*"
 
 [dev-packages]
 
