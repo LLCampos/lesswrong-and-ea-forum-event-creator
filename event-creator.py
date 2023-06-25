@@ -4,6 +4,7 @@ from time import sleep
 
 from selenium import webdriver
 from selenium.common import NoSuchElementException
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -12,7 +13,8 @@ config.read("conf.ini")
 
 
 def create_event(meetup_date, base_url, group_id, username, password, type):
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
 
     if type == "ea":
         driver.get(base_url)
@@ -24,7 +26,8 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     driver.find_element(By.NAME, "password").send_keys(password)
 
     if type == "ea":
-        driver.find_element(By.NAME, "action").click()
+        print("For some mysterious reason I have to manually click the login button")
+        # driver.find_element(By.NAME, "action").click()
     elif type == "lw":
         driver.find_element(By.CLASS_NAME, "WrappedLoginForm-submit").click()
         sleep(5)
@@ -103,6 +106,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2023, 6, 17)
-    # create_ea_forum_event(meetup_date)
+    meetup_date = datetime.datetime(2023, 7, 15)
+    create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
