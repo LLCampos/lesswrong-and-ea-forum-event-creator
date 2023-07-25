@@ -18,7 +18,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
 
     if type == "ea":
         driver.get(base_url)
-        driver.find_element(By.CLASS_NAME, "UsersAccountMenu-userButton").click()
+        driver.find_element(By.XPATH, "//span[text()='Login']").click()
     elif type == "lw":
         driver.get("https://www.lesswrong.com/login")
 
