@@ -56,7 +56,8 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         "from the average attendee. You'll be fine!\n"
         "Exact location: https://plus.codes/8CCGPRJW+V8\n"
         "We meet on top of a small hill East of the Linha d'Água café in Jardim Amália Rodrigues. For comfort, bring "
-        "sunglasses and a blanket to sit on. There is some natural shade.")
+        "sunglasses and a blanket to sit on. There is some natural shade. Also, it can get quite windy, so bring "
+        "a jacket.")
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor, main']").send_keys(description)
 
     driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
@@ -106,6 +107,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2023, 7, 15)
+    meetup_date = datetime.datetime(2023, 8, 19)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
