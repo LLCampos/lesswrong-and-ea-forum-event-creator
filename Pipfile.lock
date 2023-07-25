@@ -200,14 +200,6 @@
             ],
             "version": "==2.4.0"
         },
-        "tqdm": {
-            "hashes": [
-                "sha256:1871fb68a86b8fb3b59ca4cdd3dcccbc7e6d613eeed31f4c332531977b89beb5",
-                "sha256:c4f53a17fe37e132815abceec022631be8ffe1b9381c2e6e30aa70edc99e9671"
-            ],
-            "markers": "python_version >= '3.7'",
-            "version": "==4.65.0"
-        },
         "trio": {
             "hashes": [
                 "sha256:3887cf18c8bcc894433420305468388dac76932e9668afa1c49aa3806b6accb3",
@@ -234,11 +226,11 @@
         },
         "webdriver-manager": {
             "hashes": [
-                "sha256:7d3aa8d67bd6c92a5d25f4abd75eea2c6dd24ea6617bff986f502280903a0e2b",
-                "sha256:ee788d389b8f45222a8a62f6f39b579360a1f87be46dad6da89918354af3ce73"
+                "sha256:1dfc29a786abb97ba28076d4766d931064eeeac71a9685a3e8d46f5d363fcbe3",
+                "sha256:cd1f49ebb325a98b4dc3c41056f5b645e82fff3f83e346607844ec0bdf561c0b"
             ],
             "index": "pypi",
-            "version": "==3.8.6"
+            "version": "==3.9.1"
         },
         "wsproto": {
             "hashes": [
