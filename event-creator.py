@@ -44,7 +44,10 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         pass
 
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
-    driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
+    if type == "ea":
+        driver.find_element(By.XPATH, "//*[@placeholder='Post title']").send_keys(title)
+    elif type == "lw":
+        driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
 
     try:
         driver.find_element(By.XPATH, "//span[text()='Accept all']").click()
@@ -107,6 +110,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2023, 8, 19)
+    meetup_date = datetime.datetime(2023, 9, 16)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
