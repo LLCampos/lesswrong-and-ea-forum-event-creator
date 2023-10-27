@@ -18,7 +18,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
 
     if type == "ea":
         driver.get(base_url)
-        driver.find_element(By.XPATH, "//span[text()='Login']").click()
+        driver.find_element(By.CLASS_NAME, "UsersAccountMenu-login").click()
     elif type == "lw":
         driver.get("https://www.lesswrong.com/login")
 
@@ -44,10 +44,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         pass
 
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
-    if type == "ea":
-        driver.find_element(By.XPATH, "//*[@placeholder='Post title']").send_keys(title)
-    elif type == "lw":
-        driver.find_element(By.XPATH, "//*[@placeholder='Title']").send_keys(title)
+    driver.find_element(By.XPATH, "//*[@placeholder='Post title']").send_keys(title)
 
     try:
         driver.find_element(By.XPATH, "//span[text()='Accept all']").click()
@@ -60,7 +57,8 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         "Exact location: https://plus.codes/8CCGPRJW+V8\n"
         "We meet on top of a small hill East of the Linha d'Água café in Jardim Amália Rodrigues. For comfort, bring "
         "sunglasses and a blanket to sit on. There is some natural shade. Also, it can get quite windy, so bring "
-        "a jacket.")
+        "a jacket.\n"
+        "(Location might change due to weather)")
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor, main']").send_keys(description)
 
     driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
@@ -110,6 +108,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2023, 9, 16)
+    meetup_date = datetime.datetime(2023, 11, 18)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
