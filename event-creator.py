@@ -29,7 +29,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         print("For some mysterious reason I have to manually click the login button")
         # driver.find_element(By.NAME, "action").click()
     elif type == "lw":
-        driver.find_element(By.CLASS_NAME, "WrappedLoginForm-submit").click()
+        driver.find_element(By.CLASS_NAME, "LoginForm-submit").click()
         sleep(5)
 
     driver.get(f"{base_url}/newPost?eventForm=true&groupId={group_id}")
@@ -118,5 +118,5 @@ def create_lesswrong_event(meetup_date):
 
 if __name__ == "__main__":
     meetup_date = datetime.datetime(2024, 1, 20)
-    create_ea_forum_event(meetup_date)
+    # create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
