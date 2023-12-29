@@ -51,14 +51,21 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     except NoSuchElementException:
         pass
 
+    # description = (
+    #     "Please don’t feel like you “won’t be welcome” just because you’re new to ACX/EA or demographically different "
+    #     "from the average attendee. You'll be fine!\n"
+    #     "Exact location: https://plus.codes/8CCGPRJW+V8\n"
+    #     "We meet on top of a small hill East of the Linha d'Água café in Jardim Amália Rodrigues. For comfort, bring "
+    #     "sunglasses and a blanket to sit on. There is some natural shade. Also, it can get quite windy, so bring "
+    #     "a jacket.\n"
+    #     "(Location might change due to weather)")
+
     description = (
         "Please don’t feel like you “won’t be welcome” just because you’re new to ACX/EA or demographically different "
         "from the average attendee. You'll be fine!\n"
-        "Exact location: https://plus.codes/8CCGPRJW+V8\n"
-        "We meet on top of a small hill East of the Linha d'Água café in Jardim Amália Rodrigues. For comfort, bring "
-        "sunglasses and a blanket to sit on. There is some natural shade. Also, it can get quite windy, so bring "
-        "a jacket.\n"
-        "(Location might change due to weather)")
+        "We'll meet in Docel: https://goo.gl/maps/39vAg1wjuj7FapMv9"
+    )
+
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor, main']").send_keys(description)
 
     driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
@@ -75,7 +82,9 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     end_time.click()
     end_time.send_keys(f"{formatted_date} 6:00 PM")
 
-    location = "PRJW+V8 Lisboa, Portugal"
+    # location = "PRJW+V8 Lisboa, Portugal"
+    location = "docel,"
+
     driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
     sleep(1)
     driver.find_element(By.CLASS_NAME, "geosuggest__item").click()
@@ -108,6 +117,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2023, 11, 18)
+    meetup_date = datetime.datetime(2024, 1, 20)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
