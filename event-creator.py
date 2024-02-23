@@ -19,18 +19,16 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     if type == "ea":
         driver.get(base_url)
         driver.find_element(By.CLASS_NAME, "UsersAccountMenu-login").click()
+        driver.find_element(By.XPATH, "//*[@placeholder='Email']").send_keys(username)
+        driver.find_element(By.XPATH, "//*[@placeholder='Password']").send_keys(password)
+        print("For some mysterious reason I have to manually click the login button")
     elif type == "lw":
         driver.get("https://www.lesswrong.com/login")
-
-    driver.find_element(By.NAME, "username").send_keys(username)
-    driver.find_element(By.NAME, "password").send_keys(password)
-
-    if type == "ea":
-        print("For some mysterious reason I have to manually click the login button")
-        # driver.find_element(By.NAME, "action").click()
-    elif type == "lw":
+        driver.find_element(By.NAME, "username").send_keys(username)
+        driver.find_element(By.NAME, "password").send_keys(password)
         driver.find_element(By.CLASS_NAME, "LoginForm-submit").click()
-        sleep(5)
+
+    sleep(5)
 
     driver.get(f"{base_url}/newPost?eventForm=true&groupId={group_id}")
 
@@ -44,27 +42,27 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         pass
 
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
-    driver.find_element(By.XPATH, "//*[@placeholder='Post title']").send_keys(title)
+    driver.find_element(By.XPATH, "//*[@placeholder='Event name']").send_keys(title)
 
     try:
         driver.find_element(By.XPATH, "//span[text()='Accept all']").click()
     except NoSuchElementException:
         pass
 
-    # description = (
-    #     "Please don’t feel like you “won’t be welcome” just because you’re new to ACX/EA or demographically different "
-    #     "from the average attendee. You'll be fine!\n"
-    #     "Exact location: https://plus.codes/8CCGPRJW+V8\n"
-    #     "We meet on top of a small hill East of the Linha d'Água café in Jardim Amália Rodrigues. For comfort, bring "
-    #     "sunglasses and a blanket to sit on. There is some natural shade. Also, it can get quite windy, so bring "
-    #     "a jacket.\n"
-    #     "(Location might change due to weather)")
-
     description = (
         "Please don’t feel like you “won’t be welcome” just because you’re new to ACX/EA or demographically different "
         "from the average attendee. You'll be fine!\n"
-        "We'll meet in Docel: https://goo.gl/maps/39vAg1wjuj7FapMv9"
-    )
+        "Exact location: https://plus.codes/8CCGPRJW+V8\n"
+        "We meet on top of a small hill East of the Linha d'Água café in Jardim Amália Rodrigues. For comfort, bring "
+        "sunglasses and a blanket to sit on. There is some natural shade. Also, it can get quite windy, so bring "
+        "a jacket.\n"
+        "(Location might change due to weather)")
+
+    # description = (
+    #     "Please don’t feel like you “won’t be welcome” just because you’re new to ACX/EA or demographically different "
+    #     "from the average attendee. You'll be fine!\n"
+    #     "We'll meet in Docel: https://goo.gl/maps/39vAg1wjuj7FapMv9"
+    # )
 
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor, main']").send_keys(description)
 
@@ -82,8 +80,8 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     end_time.click()
     end_time.send_keys(f"{formatted_date} 6:00 PM")
 
-    # location = "PRJW+V8 Lisboa, Portugal"
-    location = "docel,"
+    location = "PRJW+V8 Lisboa, Portugal"
+    # location = "docel,"
 
     driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
     sleep(1)
@@ -117,6 +115,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2024, 1, 20)
-    # create_ea_forum_event(meetup_date)
+    meetup_date = datetime.datetime(2024, 3, 16)
+    create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
