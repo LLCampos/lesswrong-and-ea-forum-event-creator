@@ -115,6 +115,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2024, 7, 27)
+    meetup_date = datetime.datetime(2024, 8, 24)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
