@@ -66,9 +66,6 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
 
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor. Editing area: main. Press ⌥0 for help.']").send_keys(description)
 
-    driver.find_element(By.XPATH, "//label[text()='Event Format']/following-sibling::div").click()
-    driver.find_element(By.XPATH, "//li[text()='Social']").click()
-
     sleep(5)
 
     formatted_date = meetup_date.strftime("%m/%d/%Y")
@@ -115,6 +112,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2024, 12, 21)
+    meetup_date = datetime.datetime(2025, 1, 18)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
