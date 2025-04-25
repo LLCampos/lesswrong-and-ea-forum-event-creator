@@ -1,3 +1,4 @@
 conf.ini
 *.iml
 .idea/*
+.DS_Store
