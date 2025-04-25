@@ -21,7 +21,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         driver.find_element(By.CSS_SELECTOR, "[data-testid='user-login-button']").click()
         driver.find_element(By.XPATH, "//*[@placeholder='Email']").send_keys(username)
         driver.find_element(By.XPATH, "//*[@placeholder='Password']").send_keys(password)
-        print("For some mysterious reason I have to manually click the login button")
+        driver.find_element(By.CSS_SELECTOR, "[data-testid='login-submit']").click()
     elif type == "lw":
         driver.get("https://www.lesswrong.com/login")
         driver.find_element(By.NAME, "username").send_keys(username)
@@ -42,7 +42,10 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         pass
 
     title = f"ACX/EA Lisbon {meetup_date.strftime('%B')} {meetup_date.year} Meetup"
-    driver.find_element(By.XPATH, "//*[@placeholder='Event name']").send_keys(title)
+    title_element = driver.find_element(By.XPATH, "//*[@placeholder='Event name']")
+    title_element.clear()
+    sleep(1)
+    title_element.send_keys(title)
 
     try:
         driver.find_element(By.XPATH, "//span[text()='Accept all']").click()
@@ -66,7 +69,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
 
     driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor. Editing area: main. Press ⌥0 for help.']").send_keys(description)
 
-    sleep(5)
+    sleep(10)
 
     formatted_date = meetup_date.strftime("%m/%d/%Y")
     start_time = driver.find_element(By.NAME, "startTime")
@@ -91,7 +94,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         for cat in ['LW', 'SSC', 'EA']:
             driver.find_element(By.XPATH, f"//span[text()='{cat}']").click()
 
-    driver.find_element(By.XPATH, "//*[text()='Submit']").click()
+    driver.find_element(By.XPATH, "//*[text()='Publish']").click()
     sleep(2)
 
 
@@ -112,6 +115,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2025, 1, 18)
+    meetup_date = datetime.datetime(2025, 5, 17)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
