@@ -48,6 +48,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     title_element.send_keys(title)
 
     try:
+        sleep(7)
         driver.find_element(By.XPATH, "//span[text()='Accept all']").click()
     except NoSuchElementException:
         pass
@@ -72,15 +73,18 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     sleep(10)
 
     formatted_date = meetup_date.strftime("%m/%d/%Y")
-    start_time = driver.find_element(By.NAME, "startTime")
+
+    datepicker_elements = driver.find_elements(By.CSS_SELECTOR, ".react-datepicker__input-container input")
+
+    start_time = datepicker_elements[0]
     start_time.click()
     start_time.send_keys(f"{formatted_date} 3:00 PM")
 
-    end_time = driver.find_element(By.NAME, "endTime")
+    end_time = datepicker_elements[1]
     end_time.click()
     end_time.send_keys(f"{formatted_date} 6:00 PM")
 
-    location = "PRJW+V8 Lisboa, Portugal"
+    location = "8CCGPRJW+V8"
     # location = "docel,"
 
     driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
@@ -115,6 +119,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2025, 5, 17)
+    meetup_date = datetime.datetime(2025, 6, 21)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
