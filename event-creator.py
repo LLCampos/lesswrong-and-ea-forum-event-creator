@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 
 config = ConfigParser()
@@ -19,6 +20,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     if type == "ea":
         driver.get(base_url)
         driver.find_element(By.CSS_SELECTOR, "[data-testid='user-login-button']").click()
+        sleep(1)
         driver.find_element(By.XPATH, "//*[@placeholder='Email']").send_keys(username)
         driver.find_element(By.XPATH, "//*[@placeholder='Password']").send_keys(password)
         driver.find_element(By.CSS_SELECTOR, "[data-testid='login-submit']").click()
@@ -79,17 +81,24 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     start_time = datepicker_elements[0]
     start_time.click()
     start_time.send_keys(f"{formatted_date} 3:00 PM")
+    start_time.send_keys(Keys.ESCAPE)
 
     end_time = datepicker_elements[1]
     end_time.click()
     end_time.send_keys(f"{formatted_date} 6:00 PM")
+    end_time.send_keys(Keys.ESCAPE)
 
     location = "8CCGPRJW+V8"
     # location = "docel,"
 
-    driver.find_element(By.XPATH, "//*[@placeholder='Event Location']").send_keys(location)
+    event_location_input = driver.find_element(By.XPATH, "//*[@placeholder='Event Location']")
+    event_location_input.clear()
     sleep(1)
-    driver.find_element(By.CLASS_NAME, "geosuggest__item").click()
+    event_location_input.click()
+    event_location_input.send_keys(Keys.BACKSPACE * 100)
+    event_location_input.send_keys(location)
+    sleep(1)
+    driver.find_element(By.XPATH, "//*[@class='geosuggest__item']").click()
 
     contact = "Phone Number: +351960105498"
     driver.find_element(By.XPATH, "//label[text()='Contact Info']/following-sibling::div/input").send_keys(contact)
@@ -119,6 +128,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2025, 6, 21)
+    meetup_date = datetime.datetime(2025, 7, 19)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
