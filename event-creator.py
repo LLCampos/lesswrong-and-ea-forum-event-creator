@@ -92,10 +92,8 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     # location = "docel,"
 
     event_location_input = driver.find_element(By.XPATH, "//*[@placeholder='Event Location']")
-    event_location_input.clear()
-    sleep(1)
     event_location_input.click()
-    event_location_input.send_keys(Keys.BACKSPACE * 100)
+    event_location_input.send_keys(Keys.BACKSPACE * 300)
     event_location_input.send_keys(location)
     sleep(1)
     driver.find_element(By.XPATH, "//*[@class='geosuggest__item']").click()
@@ -128,6 +126,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2025, 7, 19)
-    create_ea_forum_event(meetup_date)
+    meetup_date = datetime.datetime(2025, 8, 16)
+    # create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
