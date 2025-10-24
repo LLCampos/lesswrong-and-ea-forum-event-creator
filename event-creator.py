@@ -95,14 +95,14 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     event_location_input.click()
 
     # Hacky way to delete the existing location because non-hacky ways don't work
-    for _ in range(50):
+    for _ in range(100):
         event_location_input.send_keys(Keys.ARROW_LEFT)
     event_location_input.send_keys(Keys.SHIFT, Keys.END)
     event_location_input.send_keys(Keys.DELETE)
 
     event_location_input.send_keys(location)
     event_location_input.click()
-    sleep(1)
+    sleep(2)
     driver.find_element(By.XPATH, "//*[@class='geosuggest__item']").click()
 
     contact = "Phone Number: +351960105498"
@@ -133,6 +133,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2025, 9, 20)
-    create_ea_forum_event(meetup_date)
+    meetup_date = datetime.datetime(2025, 11, 15)
+    # create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
