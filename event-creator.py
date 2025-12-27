@@ -50,7 +50,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     title_element.send_keys(title)
 
     try:
-        sleep(7)
+        sleep(10)
         driver.find_element(By.XPATH, "//span[text()='Accept all']").click()
     except NoSuchElementException:
         pass
@@ -133,6 +133,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2025, 11, 15)
-    # create_ea_forum_event(meetup_date)
+    meetup_date = datetime.datetime(2026, 1, 17)
+    create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
