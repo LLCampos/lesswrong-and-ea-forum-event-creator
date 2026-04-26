@@ -70,7 +70,10 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
     #     "We'll meet in Docel: https://goo.gl/maps/39vAg1wjuj7FapMv9"
     # )
 
-    driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor. Editing area: main. Press ⌥0 for help.']").send_keys(description)
+    if type == "ea":
+        driver.find_element(By.XPATH, "//*[@aria-label='Rich Text Editor. Editing area: main. Press ⌥0 for help.']").send_keys(description)
+    else:
+        driver.find_element(By.CLASS_NAME, "LexicalContentEditable-root").send_keys(description)
 
     sleep(10)
 
@@ -112,7 +115,11 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
         for cat in ['LW', 'SSC', 'EA']:
             driver.find_element(By.XPATH, f"//span[text()='{cat}']").click()
 
+    if type == "lw":
+        driver.find_element(By.CLASS_NAME, "PostForm-publishIconButton").click()
+
     driver.find_element(By.XPATH, "//*[text()='Publish']").click()
+
     sleep(2)
 
 
@@ -133,6 +140,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2026, 1, 17)
+    meetup_date = datetime.datetime(2026, 5, 16)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
