@@ -19,7 +19,7 @@ def create_event(meetup_date, base_url, group_id, username, password, type):
 
     if type == "ea":
         driver.get(base_url)
-        driver.find_element(By.CSS_SELECTOR, "[data-testid='user-login-button']").click()
+        driver.find_element(By.XPATH, "//button[normalize-space()='Login']").click()
         sleep(1)
         driver.find_element(By.XPATH, "//*[@placeholder='Email']").send_keys(username)
         driver.find_element(By.XPATH, "//*[@placeholder='Password']").send_keys(password)
@@ -140,6 +140,6 @@ def create_lesswrong_event(meetup_date):
 
 
 if __name__ == "__main__":
-    meetup_date = datetime.datetime(2026, 5, 16)
+    meetup_date = datetime.datetime(2026, 7, 18)
     create_ea_forum_event(meetup_date)
     create_lesswrong_event(meetup_date)
